@@ -25,6 +25,10 @@ class Equipo
     #[ORM\Column(type: 'string', length: 255)]
     private $Ciudad;
 
+    #[ORM\ManyToOne(targetEntity: "Liga")]
+    #[ORM\JoinColumn(name: "liga_id", referencedColumnName: "id")]
+    private $liga;
+
     public function getId(): ?int
     {
         return $this->id;

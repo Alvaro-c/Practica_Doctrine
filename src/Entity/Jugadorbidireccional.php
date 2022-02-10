@@ -68,25 +68,12 @@ class Jugadorbidireccional
     }
 
     //Al estar el campo equipo relaciones con la entidad equipo, lo que devuelve get un objeto de la clase equipo
-    public function getEquipo(): ?Equipo
-    {
-        return $this->Equipo;
-    }
-    //Al estar el campo equipo relaciones con la entidad equipo, lo que espera set es un objeto de la clase equipo
-    public function setEquipo(Equipo $Equipo): self
-    {
-        $this->Equipo = $Equipo;
-
-        return $this;
-    }
-
-    //Al estar el campo equipo relaciones con la entidad equipo, lo que devuelve get un objeto de la clase equipo
-        public function getEquipoBid(): ?Equipo
+        public function getEquipoBid(): ?Equipobidireccional
         {
             return $this->EquipoBid;
         }
     //Al estar el campo equipo relaciones con la entidad equipo, lo que espera set es un objeto de la clase equipo
-        public function setEquipoBid(Equipo $Equipo): self
+        public function setEquipoBid(Equipobidireccional $Equipo): self
         {
             $this->EquipoBid = $Equipo;
     
