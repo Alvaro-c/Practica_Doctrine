@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Equipo;
+use App\Entity\Liga;
 use App\Entity\Equipobidireccional;
 use App\Entity\Jugador;
 use App\Entity\Jugadorbidireccional;
@@ -38,4 +39,22 @@ class EjerciciosDoctrineController extends AbstractController
         return new Response('El jugador buscado es ' . $jugador->getnombre() .' ' . $jugador->getapellidos()
         .'. Su equipo es: '. $equipo->getnombre());
     }
+
+    // Ejercicio 3, apartado B
+    #[Route('/ejercicios/liga/{id}', name: 'ejercicios_doctrine')]
+    public function searchLiga(ManagerRegistry $doctrine, int $id): Response
+    {
+        $jugador = $doctrine->getRepository(Jugadorbidireccional::class)->find($id);
+
+        $array_de_equipos = $doctrine->getRepository(Equipobidireccional::class)->findAll();
+        $datos = '';
+        foreach ($array_de_equipos as $equipo){
+            $datos = $datos . '- ' . $equipo->getnombre() . ' <br>';
+        }
+
+
+
+        return new Response($datos);
+    }
+
 }
