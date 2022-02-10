@@ -24,7 +24,7 @@ class EjerciciosDoctrineController extends AbstractController
     }
 
     // Ejercicio 3, apartado A
-    #[Route('/ejercicios/buscar/{id}', name: 'ejercicios_doctrine')]
+    #[Route('/ejercicios/buscar/{id}', name: 'ejercicios_doctrine_3A')]
     public function searchPlayer(ManagerRegistry $doctrine, int $id): Response
     {
         $jugador = $doctrine->getRepository(Jugadorbidireccional::class)->find($id);
@@ -41,15 +41,44 @@ class EjerciciosDoctrineController extends AbstractController
     }
 
     // Ejercicio 3, apartado B
-    #[Route('/ejercicios/liga/{id}', name: 'ejercicios_doctrine')]
+    #[Route('/ejercicios/liga/{id}', name: 'ejercicios_doctrine_3B')]
     public function searchLiga(ManagerRegistry $doctrine, int $id): Response
     {
-        $jugador = $doctrine->getRepository(Jugadorbidireccional::class)->find($id);
+        
 
         $array_de_equipos = $doctrine->getRepository(Equipobidireccional::class)->findAll();
         $datos = '';
         foreach ($array_de_equipos as $equipo){
             $datos = $datos . '- ' . $equipo->getnombre() . ' <br>';
+        }
+
+
+
+        return new Response($datos);
+    }
+
+
+    // Ejercicio 3, apartado C
+    #[Route('/ejercicios/ligabi/{id}', name: 'ejercicios_doctrine_3C')]
+    public function searchLigaBi(ManagerRegistry $doctrine, int $id): Response
+    {
+        
+        $array_de_equipos = $doctrine->getRepository(Equipo::class)->findAll();
+        $datos = '';
+        
+        foreach ($array_de_equipos as $equipo){
+
+            $datos = $datos . '' . $equipo->getnombre() . ' <br>';
+
+            $array_de_jugadores = $doctrine->getRepository(Jugador::class)->findAll();
+
+            foreach($array_de_jugadores as $jugador) {
+
+                $datos = $datos . '- ' . $jugador->getnombre() . ' <br>';
+
+            }
+
+            $datos = $datos . ' <br><br>';
         }
 
 
