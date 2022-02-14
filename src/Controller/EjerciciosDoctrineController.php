@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Partido;
+use App\Entity\Partidobidireccional;
 use App\Entity\Presidente;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -137,5 +138,21 @@ class EjerciciosDoctrineController extends AbstractController
     }
 
 
+    // Ejercicio 8
+    #[Route('/ejercicios/partido/{id}', name: 'ejercicios_doctrine_8')]
+    public function datesById(ManagerRegistry $doctrine, int $id): Response
+    {
+
+        $partido = $doctrine->getRepository(Partidobidireccional::class)->find($id);
+
+
+        $local = $doctrine->getRepository(Equipo::class)->find($partidos->getLocal());
+        $visitante = $doctrine->getRepository(Equipo::class)->find($partidos->getVisitante());
+
+        $datos = "Equipo local: ". $local->getNombre() .
+            "<br>Equipo visitante: ". $visitante->getNombre();
+
+        return new Response($datos);
+    }
 
 }

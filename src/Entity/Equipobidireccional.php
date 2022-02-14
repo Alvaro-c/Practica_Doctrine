@@ -30,6 +30,9 @@ class Equipobidireccional
     #[ORM\OneToMany(targetEntity: "Jugadorbidireccional", mappedBy:"EquipoBid")]
     private $Jugadores;
 
+    #[ORM\OneToMany(targetEntity: "Partidosbidireccional", mappedBy:"EquipoBid")]
+    private $Partidos;
+
     public function __construct() {
         $this->Jugadores = new ArrayCollection();
         }
