@@ -29,6 +29,10 @@ class Equipo
     #[ORM\JoinColumn(name: "liga_id", referencedColumnName: "id")]
     private $liga;
 
+    #[ORM\ManyToOne(targetEntity: "Presidente")]
+    #[ORM\JoinColumn(name: "presidente_id", referencedColumnName: "id")]
+    private $presidente;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +92,18 @@ class Equipo
     public function setLiga(?Liga $liga): self
     {
         $this->liga = $liga;
+
+        return $this;
+    }
+
+    public function getPresidente(): ?Presidente
+    {
+        return $this->presidente;
+    }
+
+    public function setPresidente(?Presidente $presidente): self
+    {
+        $this->presidente = $presidente;
 
         return $this;
     }
