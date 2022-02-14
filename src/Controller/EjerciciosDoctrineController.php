@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Partido;
 use App\Entity\Presidente;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +14,7 @@ use App\Entity\Equipobidireccional;
 use App\Entity\Jugador;
 use App\Entity\Jugadorbidireccional;
 use App\Repository\JugadorRepository;
+
 
 class EjerciciosDoctrineController extends AbstractController
 {
@@ -117,7 +119,23 @@ class EjerciciosDoctrineController extends AbstractController
         return new Response($datos);
     }
 
+    // Ejercicio 7
+    #[Route('/ejercicios/partido/{id}', name: 'ejercicios_doctrine_7')]
+    public function FindMatchById(ManagerRegistry $doctrine, int $id): Response
+    {
 
-    
+        $partidos = $doctrine->getRepository(Partido::class)->find($id);
+
+
+        $local = $doctrine->getRepository(Equipo::class)->find($partidos->getLocal());
+        $visitante = $doctrine->getRepository(Equipo::class)->find($partidos->getVisitante());
+
+        $datos = "Equipo local: ". $local->getNombre() .
+                 "<br>Equipo visitante: ". $visitante->getNombre();
+
+        return new Response($datos);
+    }
+
+
 
 }

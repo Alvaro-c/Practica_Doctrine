@@ -14,11 +14,11 @@ class Partido
     private $id;
 
     #[ORM\OneToOne(targetEntity: "Equipo")]
-    #[ORM\JoinColumn(name: "local", referencedColumnName: "local")]
+    #[ORM\JoinColumn(name: "local", referencedColumnName: "id")]
     private $local;
 
     #[ORM\OneToOne(targetEntity: "Equipo")]
-    #[ORM\JoinColumn(name: "visitante", referencedColumnName: "visitante")]
+    #[ORM\JoinColumn(name: "visitante", referencedColumnName: "id")]
     private $visitante;
 
     #[ORM\Column(type: 'integer')]
@@ -35,7 +35,7 @@ class Partido
         return $this->id;
     }
 
-    public function getLocal(): ?int
+    public function getLocal(): ?Equipo
     {
         return $this->local;
     }
@@ -47,7 +47,7 @@ class Partido
         return $this;
     }
 
-    public function getVisitante(): ?int
+    public function getVisitante(): ?Equipo
     {
         return $this->visitante;
     }
