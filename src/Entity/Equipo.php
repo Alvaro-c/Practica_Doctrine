@@ -29,7 +29,7 @@ class Equipo
     #[ORM\JoinColumn(name: "liga_id", referencedColumnName: "id")]
     private $liga;
 
-    #[ORM\ManyToOne(targetEntity: "Presidente")]
+    #[ORM\OneToOne(targetEntity: "Presidente")]
     #[ORM\JoinColumn(name: "presidente_id", referencedColumnName: "id")]
     private $presidente;
 
