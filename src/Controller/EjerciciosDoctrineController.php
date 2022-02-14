@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Presidente;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -59,8 +60,8 @@ class EjerciciosDoctrineController extends AbstractController
 
 
     // Ejercicio 3 Apartado C
-    #[Route('/ejercicios/ligabi/{id}', name: 'buscar_Jugador_LigaUnid')]
-    public function buscar__Jugador_Liga(ManagerRegistry $doctrine, int $id): Response
+    #[Route('/ejercicios/ligabi/{id}', name: 'ejercicios_doctrine_3B')]
+    public function findPlayersByLiga(ManagerRegistry $doctrine, int $id): Response
     {
 
         $jugadores = $doctrine->getRepository(Jugador::class)->findAll();
@@ -80,7 +81,41 @@ class EjerciciosDoctrineController extends AbstractController
     }
 
 
+    // Ejercicio 5
+    #[Route('/ejercicios/presidenteEquipo/{id}', name: 'ejercicios_doctrine_5')]
+    public function FindPresidentByTeamId(ManagerRegistry $doctrine, int $id): Response
+    {
 
+        $equipo = $doctrine->getRepository(Equipo::class)->find($id);
+
+
+        $datos = "Equipo: ". $equipo->getNombre() . "<br>Presidente/a: <br>Nombre:" . $equipo->getPresidente()->getNombre()
+        . "<br>Apellidos: " . $equipo->getPresidente()->getApellidos() . "<br>Posesión: " . $equipo->getPresidente()->getPosesion();
+
+
+        return new Response($datos);
+
+    }
+
+
+    // Ejercicio 6
+    #[Route('/ejercicios/presidente/{id}', name: 'ejercicios_doctrine_6')]
+    public function FindPresidentById(ManagerRegistry $doctrine, int $id): Response
+    {
+
+        $presidente = $doctrine->getRepository(Presidente::class)->find($id);
+        $equipo = $doctrine->getRepository(Equipo::class)->find($presidente->getEquipo());
+
+
+        $datos = "Presidente: ". $presidente->getNombre() .
+            "<br>Equipo:". $equipo->getNombre() .
+            "<br>Socios:". $equipo->getSocios() .
+            "<br>Fundacion: " . $equipo->getFundacion() .
+            "<br>Ciudad: " . $equipo->getCiudad();
+
+
+        return new Response($datos);
+    }
 
 
 
