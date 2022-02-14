@@ -80,4 +80,16 @@ class Equipo
         return $this;
     }
 
+    public function getLiga(): ?Liga
+    {
+        return $this->liga;
+    }
+
+    public function setLiga(?Liga $liga): self
+    {
+        $this->liga = $liga;
+
+        return $this;
+    }
+
 }

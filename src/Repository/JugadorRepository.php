@@ -34,7 +34,16 @@ class JugadorRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    
     */
+
+    public function findByJugadorByLigaId($value)
+    {
+        return $this->createQuery("Select j from Jugador j join e.equipo e join l.liga l where liga = $value")->getResult();
+            //->setParameter('val', $value)
+        ;
+    }
+    
 
     /*
     public function findOneBySomeField($value): ?Jugador

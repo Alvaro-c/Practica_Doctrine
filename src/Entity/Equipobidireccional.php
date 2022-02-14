@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\EquipobidireccionalRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EquipobidireccionalRepository::class)]
@@ -87,6 +88,28 @@ class Equipobidireccional
     public function getJugadores()
     {
         return $this->Jugadores;
+    }
+
+    public function addJugadore(Jugadorbidireccional $jugadore): self
+    {
+        if (!$this->Jugadores->contains($jugadore)) {
+            $this->Jugadores[] = $jugadore;
+            $jugadore->setEquipoBid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJugadore(Jugadorbidireccional $jugadore): self
+    {
+        if ($this->Jugadores->removeElement($jugadore)) {
+            // set the owning side to null (unless already changed)
+            if ($jugadore->getEquipoBid() === $this) {
+                $jugadore->setEquipoBid(null);
+            }
+        }
+
+        return $this;
     }
 
 }
