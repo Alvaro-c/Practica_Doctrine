@@ -160,13 +160,41 @@ class EjerciciosDoctrineController extends AbstractController
     #[Route('/ejercicios/equipos/fundacion', name: 'ejercicios_doctrine_7')]
     public function teamsByFoundation(ManagerRegistry $doctrine): Response
     {
-
+        // Llamada al método que encuentra todos los equipos ordenados por fundación
         $equipos = $doctrine->getRepository(Equipo::class)->findByFoundation();
         $datos = '';
 
+        // Se imprimen los resultados
         foreach ($equipos as $equipo) {
 
             $datos = $datos . "Equipo: " . $equipo->getNombre() . "; Fundación: ". $equipo->getFundacion() . "<br>";
+        }
+
+        return new Response($datos);
+    }
+
+    // Ejercicio 10
+    #[Route('/ejercicios/partidos/visitante/{id}', name: 'ejercicios_doctrine_7')]
+    public function teamsByVisitante(ManagerRegistry $doctrine, int $id): Response
+    {
+        // El método está hecho para que se pueda comprobar el visitante. Se fuerza el id para que siempre sea el del Bcn
+        //Hardcoded id= 2 (Barcelona)
+        $id = 2;
+
+        // Llamada al método que encuentra todos los partidos del visitante con el ID pasado por parámetro
+        $partidos = $doctrine->getRepository(Partido::class)->findByVisitante($id);
+        $datos = '';
+
+        // Se imprime cada uno de los partidos
+        foreach ($partidos as $partido) {
+
+            $datos = $datos .
+                    "Partido: " . $partido->getId() . "; " .
+                    "Local: ". $partido->getLocal()->getNombre() . "; " .
+                    "Goles Local: ". $partido->getGolesLocal() . "; " .
+                    "Visitante: ". $partido->getVisitante()->getNombre() . "; " .
+                    "Goles Visitante: ". $partido->getGolesVisitante() . "; " .
+                    "Fecha: ". $partido->getFecha() . "; " . "<br>";
         }
 
         return new Response($datos);

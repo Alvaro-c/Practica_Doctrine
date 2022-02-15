@@ -23,7 +23,9 @@ class EquipoRepository extends ServiceEntityRepository
     // Ejercicio 9
     public function findByFoundation(){
 
+        // Instancia del $entityManager
         $entityManager = $this->getEntityManager();
+        // Consulta DQL para obtener todos los equipos ordenados por fundación
         $ins = "SELECT e FROM App:Equipo e ORDER BY e.Fundacion ASC";
         return $entityManager->createQuery($ins)->getResult();
         

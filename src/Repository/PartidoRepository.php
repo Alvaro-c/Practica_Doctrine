@@ -19,6 +19,17 @@ class PartidoRepository extends ServiceEntityRepository
         parent::__construct($registry, Partido::class);
     }
 
+    // Ejercicio 10
+    public function findByVisitante($equipo){
+
+        // Se instancia el $entityManager
+        $entityManager = $this->getEntityManager();
+        // Consulta en DQL para obtener todos los partidos donde el visitante es el id del parámetro
+        $ins = "SELECT p FROM App:Partido p WHERE p.visitante = $equipo";
+        return $entityManager->createQuery($ins)->getResult();
+
+    }
+
     // /**
     //  * @return Partido[] Returns an array of Partido objects
     //  */
