@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Equipo;
+use App\Repository\EquipoRepository;
 use App\Entity\Liga;
 use App\Entity\Equipobidireccional;
 use App\Entity\Jugador;
@@ -138,7 +139,7 @@ class EjerciciosDoctrineController extends AbstractController
     }
 
 
-    // Ejercicio 8
+    // Ejercicio 8 FALTA
     #[Route('/ejercicios/partido/{id}', name: 'ejercicios_doctrine_8')]
     public function datesById(ManagerRegistry $doctrine, int $id): Response
     {
@@ -151,6 +152,22 @@ class EjerciciosDoctrineController extends AbstractController
 
         $datos = "Equipo local: ". $local->getNombre() .
             "<br>Equipo visitante: ". $visitante->getNombre();
+
+        return new Response($datos);
+    }
+
+    // Ejercicio 9
+    #[Route('/ejercicios/equipos/fundacion', name: 'ejercicios_doctrine_7')]
+    public function teamsByFoundation(ManagerRegistry $doctrine): Response
+    {
+
+        $equipos = $doctrine->getRepository(Equipo::class)->findByFoundation();
+        $datos = '';
+
+        foreach ($equipos as $equipo) {
+
+            $datos = $datos . "Equipo: " . $equipo->getNombre() . "; Fundación: ". $equipo->getFundacion() . "<br>";
+        }
 
         return new Response($datos);
     }

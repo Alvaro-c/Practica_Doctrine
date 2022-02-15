@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Equipo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,16 @@ class EquipoRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Equipo::class);
     }
+
+    // Ejercicio 9
+    public function findByFoundation(){
+
+        $entityManager = $this->getEntityManager();
+        $ins = "SELECT e FROM App:Equipo e ORDER BY e.Fundacion ASC";
+        return $entityManager->createQuery($ins)->getResult();
+        
+        }
+        
 
     // /**
     //  * @return Equipo[] Returns an array of Equipo objects

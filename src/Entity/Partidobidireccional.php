@@ -14,12 +14,12 @@ class Partidobidireccional
     private $id;
 
     #[ORM\OneToOne(targetEntity: "Equipobidireccional", inversedBy: "Partidos")]
-    #[ORM\JoinColumn(name: "localIdBid", referencedColumnName: "local")]
+    #[ORM\JoinColumn(name: "EquipoIdBid", referencedColumnName: "local")]
     #[ORM\Column(type: 'integer')]
     private $local;
 
     #[ORM\ManyToOne(targetEntity: "Equipobidireccional", inversedBy: "Partidos")]
-    #[ORM\JoinColumn(name: "localIdBid", referencedColumnName: "visitante")]
+    #[ORM\JoinColumn(name: "EquipoIdBid", referencedColumnName: "visitante")]
     #[ORM\Column(type: 'integer')]
     private $visitante;
 
@@ -32,9 +32,9 @@ class Partidobidireccional
     #[ORM\Column(type: 'string', length: 255)]
     private $fecha;
 
-    #[ORM\OneToOne(targetEntity: "Partidosbidireccional", inversedBy: "Partidos")]
-    #[ORM\JoinColumn(name: "equipoIdBid", referencedColumnName: "id")]
-    private $PartidosBid;
+    // #[ORM\OneToOne(targetEntity: "Partidosbidireccional", inversedBy: "Partidos")]
+    // #[ORM\JoinColumn(name: "equipoIdBid", referencedColumnName: "id")]
+    // private $EquipoBid;
 
     public function getId(): ?int
     {

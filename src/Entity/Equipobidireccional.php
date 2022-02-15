@@ -30,12 +30,14 @@ class Equipobidireccional
     #[ORM\OneToMany(targetEntity: "Jugadorbidireccional", mappedBy:"EquipoBid")]
     private $Jugadores;
 
-    #[ORM\OneToMany(targetEntity: "Partidosbidireccional", mappedBy:"EquipoBid")]
+    #[ORM\OneToMany(targetEntity: "Partidosbidireccional", mappedBy:"PartidosBid")]
     private $Partidos;
 
     public function __construct() {
         $this->Jugadores = new ArrayCollection();
+        $this->Partidos = new ArrayCollection();
         }
+
 
     public function getId(): ?int
     {
