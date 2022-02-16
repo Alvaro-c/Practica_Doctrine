@@ -36,6 +36,9 @@ class Equipobidireccional
     #[ORM\OneToMany(targetEntity: "Partidobidireccional", mappedBy:"visitanteBid")]
     private $Visitantes;
 
+    #[ORM\Column(type: 'integer')]
+    private $liga_id;
+
     public function __construct() {
         $this->Jugadores = new ArrayCollection();
         $this->Locales = new ArrayCollection();
@@ -177,6 +180,18 @@ class Equipobidireccional
                 $visitante->setVisitanteBid(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLigaId(): ?int
+    {
+        return $this->liga_id;
+    }
+
+    public function setLigaId(int $liga_id): self
+    {
+        $this->liga_id = $liga_id;
 
         return $this;
     }

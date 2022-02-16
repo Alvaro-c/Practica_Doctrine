@@ -46,25 +46,27 @@ class EjerciciosDoctrineController extends AbstractController
     }
 
     // Ejercicio 3, apartado B
-    #[Route('/ejercicios/liga/{id}', name: 'ejercicios_doctrine_3B')]
+    #[Route('/ejercicios/equiposliga/{id}', name: 'ejercicios_doctrine_3B')]
     public function searchLiga(ManagerRegistry $doctrine, int $id): Response
     {
-        
 
-        $array_de_equipos = $doctrine->getRepository(Equipobidireccional::class)->findAll();
+
+        $array_de_equipos = $doctrine->getRepository(Equipo::class)->findAll();
         $datos = '';
+
         foreach ($array_de_equipos as $equipo){
-            $datos = $datos . '- ' . $equipo->getnombre() . ' <br>';
+            if($equipo->getLiga()->getId() == $id) {
+
+                $datos = $datos . '- ' . $equipo->getnombre() . ' <br>';
+            }
         }
-
-
 
         return new Response($datos);
     }
 
 
     // Ejercicio 3 Apartado C
-    #[Route('/ejercicios/ligabi/{id}', name: 'ejercicios_doctrine_3B')]
+    #[Route('/ejercicios/ligabi/{id}', name: 'ejercicios_doctrine_3C')]
     public function findPlayersByLiga(ManagerRegistry $doctrine, int $id): Response
     {
 
@@ -89,10 +91,9 @@ class EjerciciosDoctrineController extends AbstractController
     #[Route('/ejercicios/presidenteEquipo/{id}', name: 'ejercicios_doctrine_5')]
     public function FindPresidentByTeamId(ManagerRegistry $doctrine, int $id): Response
     {
-
+        // Datos del equipo
         $equipo = $doctrine->getRepository(Equipo::class)->find($id);
-
-
+        // Del objeto equipo se sacan todos los demás datos del presidente asociado
         $datos = "Equipo: ". $equipo->getNombre() . "<br>Presidente/a: <br>Nombre:" . $equipo->getPresidente()->getNombre()
         . "<br>Apellidos: " . $equipo->getPresidente()->getApellidos() . "<br>Posesión: " . $equipo->getPresidente()->getPosesion();
 
@@ -122,13 +123,14 @@ class EjerciciosDoctrineController extends AbstractController
     }
 
     // Ejercicio 7
-    #[Route('/ejercicios/partido/{id}', name: 'ejercicios_doctrine_7')]
+    #[Route('/ejercicios/partido7/{id}', name: 'ejercicios_doctrine_7')]
     public function FindMatchById(ManagerRegistry $doctrine, int $id): Response
     {
 
+        // Se obtiene el partido
         $partidos = $doctrine->getRepository(Partido::class)->find($id);
 
-
+        // A partir del partido, dentro están los datos del local y el visitante
         $local = $doctrine->getRepository(Equipo::class)->find($partidos->getLocal());
         $visitante = $doctrine->getRepository(Equipo::class)->find($partidos->getVisitante());
 
@@ -140,7 +142,7 @@ class EjerciciosDoctrineController extends AbstractController
 
 
     // Ejercicio 8 FALTA
-    #[Route('/ejercicios/partidos/{id}', name: 'ejercicios_doctrine_8')]
+    #[Route('/ejercicios/partidos8/{id}', name: 'ejercicios_doctrine_8')]
     public function datesById(ManagerRegistry $doctrine, int $id): Response
     {
 
@@ -149,18 +151,18 @@ class EjerciciosDoctrineController extends AbstractController
         $datos = '';
 
         // Se guardan las fechas como local
-/*
+
         foreach ($partidosLocal as $partido) {
             $datos = "1";
             //$datos = $datos . "Local: " . $partido->getFecha() . "<br>";
-        }*/
+        }
 
 
         return new Response($datos);
     }
 
     // Ejercicio 9
-    #[Route('/ejercicios/equipos/fundacion', name: 'ejercicios_doctrine_7')]
+    #[Route('/ejercicios/equipos/fundacion', name: 'ejercicios_doctrine_9')]
     public function teamsByFoundation(ManagerRegistry $doctrine): Response
     {
         // Llamada al método que encuentra todos los equipos ordenados por fundación
@@ -177,7 +179,7 @@ class EjerciciosDoctrineController extends AbstractController
     }
 
     // Ejercicio 10
-    #[Route('/ejercicios/partidos/visitante/{id}', name: 'ejercicios_doctrine_7')]
+    #[Route('/ejercicios/partidos/visitante/{id}', name: 'ejercicios_doctrine_10')]
     public function teamsByVisitante(ManagerRegistry $doctrine, int $id): Response
     {
         // El método está hecho para que se pueda comprobar el visitante. Se fuerza el id para que siempre sea el del Bcn
