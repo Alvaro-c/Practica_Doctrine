@@ -13,15 +13,13 @@ class Partidobidireccional
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\OneToOne(targetEntity: "Equipobidireccional", inversedBy: "Partidos")]
-    #[ORM\JoinColumn(name: "EquipoIdBid", referencedColumnName: "local")]
-    #[ORM\Column(type: 'integer')]
-    private $local;
+    #[ORM\ManyToOne(targetEntity: "Equipobidireccional", inversedBy: "Locales")]
+    #[ORM\JoinColumn(name: "local", referencedColumnName: "id")]
+    private $localBid;
 
-    #[ORM\ManyToOne(targetEntity: "Equipobidireccional", inversedBy: "Partidos")]
-    #[ORM\JoinColumn(name: "EquipoIdBid", referencedColumnName: "visitante")]
-    #[ORM\Column(type: 'integer')]
-    private $visitante;
+    #[ORM\ManyToOne(targetEntity: "Equipobidireccional", inversedBy: "Visitantes")]
+    #[ORM\JoinColumn(name: "visitante", referencedColumnName: "id")]
+    private $visitanteBid;
 
     #[ORM\Column(type: 'integer')]
     private $goles_local;
@@ -97,6 +95,30 @@ class Partidobidireccional
     public function setFecha(string $fecha): self
     {
         $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    public function getLocalBid(): ?Equipobidireccional
+    {
+        return $this->localBid;
+    }
+
+    public function setLocalBid(?Equipobidireccional $localBid): self
+    {
+        $this->localBid = $localBid;
+
+        return $this;
+    }
+
+    public function getVisitanteBid(): ?Equipobidireccional
+    {
+        return $this->visitanteBid;
+    }
+
+    public function setVisitanteBid(?Equipobidireccional $visitanteBid): self
+    {
+        $this->visitanteBid = $visitanteBid;
 
         return $this;
     }

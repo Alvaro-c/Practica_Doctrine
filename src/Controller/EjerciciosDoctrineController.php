@@ -140,18 +140,21 @@ class EjerciciosDoctrineController extends AbstractController
 
 
     // Ejercicio 8 FALTA
-    #[Route('/ejercicios/partido/{id}', name: 'ejercicios_doctrine_8')]
+    #[Route('/ejercicios/partidos/{id}', name: 'ejercicios_doctrine_8')]
     public function datesById(ManagerRegistry $doctrine, int $id): Response
     {
 
-        $partido = $doctrine->getRepository(Partidobidireccional::class)->find($id);
+        $equipo = $doctrine->getRepository(Equipobidireccional::class)->find($id);
+        $partidosLocal = $equipo->getVisitantes();
+        $datos = '';
 
+        // Se guardan las fechas como local
+/*
+        foreach ($partidosLocal as $partido) {
+            $datos = "1";
+            //$datos = $datos . "Local: " . $partido->getFecha() . "<br>";
+        }*/
 
-        $local = $doctrine->getRepository(Equipo::class)->find($partidos->getLocal());
-        $visitante = $doctrine->getRepository(Equipo::class)->find($partidos->getVisitante());
-
-        $datos = "Equipo local: ". $local->getNombre() .
-            "<br>Equipo visitante: ". $visitante->getNombre();
 
         return new Response($datos);
     }

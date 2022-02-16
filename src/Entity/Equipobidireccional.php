@@ -30,13 +30,17 @@ class Equipobidireccional
     #[ORM\OneToMany(targetEntity: "Jugadorbidireccional", mappedBy:"EquipoBid")]
     private $Jugadores;
 
-    #[ORM\OneToMany(targetEntity: "Partidosbidireccional", mappedBy:"PartidosBid")]
-    private $Partidos;
+    #[ORM\OneToMany(targetEntity: "Partidobidireccional", mappedBy:"localBid")]
+    private $Locales;
+
+    #[ORM\OneToMany(targetEntity: "Partidobidireccional", mappedBy:"visitanteBid")]
+    private $Visitantes;
 
     public function __construct() {
         $this->Jugadores = new ArrayCollection();
-        $this->Partidos = new ArrayCollection();
-        }
+        $this->Locales = new ArrayCollection();
+        $this->Visitantes = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -111,6 +115,66 @@ class Equipobidireccional
             // set the owning side to null (unless already changed)
             if ($jugadore->getEquipoBid() === $this) {
                 $jugadore->setEquipoBid(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Partidobidireccional[]
+     */
+    public function getLocales(): Collection
+    {
+        return $this->Locales;
+    }
+
+    public function addLocale(Partidobidireccional $locale): self
+    {
+        if (!$this->Locales->contains($locale)) {
+            $this->Locales[] = $locale;
+            $locale->setLocalBid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocale(Partidobidireccional $locale): self
+    {
+        if ($this->Locales->removeElement($locale)) {
+            // set the owning side to null (unless already changed)
+            if ($locale->getLocalBid() === $this) {
+                $locale->setLocalBid(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Partidobidireccional[]
+     */
+    public function getVisitantes(): Collection
+    {
+        return $this->Visitantes;
+    }
+
+    public function addVisitante(Partidobidireccional $visitante): self
+    {
+        if (!$this->Visitantes->contains($visitante)) {
+            $this->Visitantes[] = $visitante;
+            $visitante->setVisitanteBid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVisitante(Partidobidireccional $visitante): self
+    {
+        if ($this->Visitantes->removeElement($visitante)) {
+            // set the owning side to null (unless already changed)
+            if ($visitante->getVisitanteBid() === $this) {
+                $visitante->setVisitanteBid(null);
             }
         }
 
