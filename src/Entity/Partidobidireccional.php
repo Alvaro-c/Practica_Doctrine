@@ -15,11 +15,11 @@ class Partidobidireccional
 
     #[ORM\ManyToOne(targetEntity: "Equipobidireccional", inversedBy: "Locales")]
     #[ORM\JoinColumn(name: "local", referencedColumnName: "id")]
-    private $localBid;
+    private $local;
 
     #[ORM\ManyToOne(targetEntity: "Equipobidireccional", inversedBy: "Visitantes")]
     #[ORM\JoinColumn(name: "visitante", referencedColumnName: "id")]
-    private $visitanteBid;
+    private $visitante;
 
     #[ORM\Column(type: 'integer')]
     private $goles_local;

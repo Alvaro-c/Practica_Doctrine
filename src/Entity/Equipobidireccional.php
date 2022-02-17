@@ -30,10 +30,10 @@ class Equipobidireccional
     #[ORM\OneToMany(targetEntity: "Jugadorbidireccional", mappedBy:"EquipoBid")]
     private $Jugadores;
 
-    #[ORM\OneToMany(targetEntity: "Partidobidireccional", mappedBy:"localBid")]
+    #[ORM\OneToMany(targetEntity: "Partidobidireccional", mappedBy:"local")]
     private $Locales;
 
-    #[ORM\OneToMany(targetEntity: "Partidobidireccional", mappedBy:"visitanteBid")]
+    #[ORM\OneToMany(targetEntity: "Partidobidireccional", mappedBy:"visitante")]
     private $Visitantes;
 
     #[ORM\Column(type: 'integer')]
@@ -195,5 +195,7 @@ class Equipobidireccional
 
         return $this;
     }
+
+
 
 }
